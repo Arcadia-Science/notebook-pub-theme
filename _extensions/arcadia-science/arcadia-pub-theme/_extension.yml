@@ -18,7 +18,3 @@ contributes:
       title-block-banner: true
       toc: true
       toc-expand: 2
-  filters:
-    - filters/abstract-section.lua
-  shortcodes:
-    - iconify.lua
