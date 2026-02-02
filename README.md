@@ -1,87 +1,73 @@
 # notebook-pub-theme
 
-A Quarto extension that provides shared styling and infrastructure for Arcadia Science notebook publications.
+A [Quarto extension](https://quarto.org/docs/extensions/) that provides shared styling and infrastructure for Arcadia Science notebook publications.
 
-## What this extension provides
+This extension provides all the styling for our notebook pub. It includes our assets (citation style, logo files, etc), all of the CSS (fonts, page layout, etc.), and interactive components (mini-title sticky header, author reveal, citation box, logo animation, etc.).
 
-- **CSS styling**: brand colors, typography, layout (navbar, footer, sidebar, article styling)
-- **Interactive components**: Mini-title sticky header, author reveal with roles/ORCID, citation box modal, logo animation, version dropdown, etc.
-- **Filters**: `abstract-section` filter that renders Summary sections with special styling
-- **Shortcodes**: `iconify` shortcode for icons in navbar and content
-- **Assets**: Arcadia citation style (CSL), logo files, etc.
+## How to use
 
-## Installation
+This extension comes pre-packaged with our [notebook pub template](https://github.com/Arcadia-Science/notebook-pub-template). **Head there if you're trying to develop a notebook pub**, or continue reading if you plan to make changes to the theme shared across all our notebook pubs.
 
-```bash
-quarto add Arcadia-Science/notebook-pub-theme
-```
+## Developer instructions
 
-Or clone/copy the extension into your project's `_extensions/` directory.
+### Setup
 
-## Usage in a Publication
-
-After installing, update your `_quarto.yml`:
-
-```yaml
-format: arcadia-science/arcadia-pub-theme-html
-
-shortcodes:
-  - _extensions/arcadia-science/arcadia-pub-theme/iconify.lua
-
-filters:
-  - _extensions/arcadia-science/arcadia-pub-theme/filters/abstract-section.lua
-```
-
-Your publication also needs an `assets/` directory with logo files:
-- `logo_white.png`
-- `logo_text.png`
-- `logo_movie.mp4`
-
-These can be copied from the extension's `assets/` directory.
-
-## Developer Workflow
+Clone this repo and make sure you've [installed Quarto](https://quarto.org/docs/get-started/): `quarto --version`
 
 ### Testing theme changes
 
-To test changes to the theme extension, use the notebook-pub-template repo which includes a demo notebook that exercises various styling features:
+You must test theme changes in concert with the notebook-pub-template repo, which includes a demo notebook that exercises various styling features.
 
-1. Clone both repos:
-   ```bash
-   git clone https://github.com/Arcadia-Science/notebook-pub-template.git
-   git clone https://github.com/Arcadia-Science/notebook-pub-theme.git
-   ```
+1. If you haven't already, clone the [notebook pub template](https://github.com/Arcadia-Science/notebook-pub-template).
 
-2. Symlink the extension into the template:
+2. Replace the existing extension with a symlink to the theme repo's contents:
+
    ```bash
    cd notebook-pub-template
    rm -rf _extensions/arcadia-science
    mkdir -p _extensions/arcadia-science
-   ln -s ../../../notebook-pub-theme/_extensions/arcadia-science/arcadia-pub-theme _extensions/arcadia-science/arcadia-pub-theme
+   ln -s ../notebook-pub-theme/_extensions/arcadia-science/arcadia-pub-theme _extensions/arcadia-science/arcadia-pub-theme
    ```
 
+   (Modify the symlink source path to match your repo location)
+
 3. Run the preview:
+
    ```bash
    make preview
    ```
 
-4. Make changes to CSS, JS, or other extension files in `notebook-pub-theme` - the preview will hot-reload
+4. Make changes to CSS, JS, or other extension files in `notebook-pub-theme`. The preview is live and will hot reload.
 
-### What lives where
+### Propagating changes
 
-| Content | Location | Rationale |
-|---------|----------|-----------|
-| CSS, JS, filters | Extension | Shared across all pubs, updated centrally |
-| Logo assets | Both extension and pub | Pubs need copies for build; extension has canonical versions |
-| Demo notebook | Template (`examples/`) | Used to test the theme during development |
-| `_quarto.yml` config | Pub | Contains pub-specific settings |
-| `authors.yml`, `_variables.yml` | Pub | Pub-specific metadata |
+After merging changes to `main`, you'll need to update the repos that use this theme.
 
-### Making Changes
+#### Updating notebook-pub-template
 
-1. **CSS changes**: Edit files in `css/`. The `main.css` imports all others.
+The template should always have the latest theme so new publications start with current styling:
 
-2. **JavaScript changes**: Edit HTML files in `includes/`. These contain `<script>` tags with the JS.
+```bash
+cd notebook-pub-template
+rm -rf _extensions/arcadia-science
+quarto add Arcadia-Science/notebook-pub-theme --no-prompt
+git add _extensions/arcadia-science
+git commit -m "Update arcadia-pub-theme"
+```
 
-3. **Filter changes**: Edit `filters/abstract-section.lua`.
+#### Updating existing publications
 
-4. **Adding new CSS variables**: Add to `css/colors.css` for colors or `css/main.css` for other variables.
+Each publication repo has its own copy of the theme extension. To pull in updates:
+
+```bash
+cd <publication-repo>
+quarto update extension Arcadia-Science/notebook-pub-theme --no-prompt
+git add _extensions/arcadia-science
+git commit -m "Update arcadia-pub-theme"
+```
+
+Test locally with `make preview` before pushing.
+
+### Future plans
+
+We plan to automate theme updates using Dependabot or a similar tool. This would automatically open PRs in publication repos when the theme is updated, reducing manual effort and ensuring publications stay current with styling improvements and bug fixes.
