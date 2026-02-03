@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+## [1.0.1] - 2026-02-03
+
+### Fixed
+
+- Renamed extension directory from `arcadia-science` to `Arcadia-Science` for Linux filesystem compatibility
+
 ## [1.0.0] - 2026-02-02
 
 ### Added
