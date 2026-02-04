@@ -65,6 +65,23 @@ The workflow logic lives here so that changes propagate automatically. When we u
 
 Each pub's wrapper files rarely need to change—they just define the trigger (schedule, path filter) and delegate to the reusable workflow.
 
+## Why a pull model?
+
+We use a "pull" model where each pub checks for updates independently, rather than a "push" model where the theme repo would dispatch updates to all pubs.
+
+**Pull model** (what we use):
+- Each pub runs a daily check for new theme releases
+- Only requires adding wrapper workflows to the template
+- New pubs inherit the workflows automatically
+
+**Push model** (alternative we avoided):
+- Theme repo would trigger workflows in all pub repos
+- Requires maintaining a list of all pub repos in the theme repo
+- Requires a PAT with write access to all pub repos
+- Must update the list whenever a new pub is created
+
+The pull model scales better and requires no central coordination.
+
 ## Related documentation
 
 For content release workflows (`build.yml`, `publish.yml`), see the [notebook-pub-template developer docs](https://github.com/Arcadia-Science/notebook-pub-template/blob/main/developer-docs/GITHUB_ACTIONS.md).
