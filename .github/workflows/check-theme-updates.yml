@@ -13,7 +13,7 @@ on:
         description: 'GitHub username to request review from'
         required: false
         type: string
-        default: 'Robert-Roth'
+        default: 'ekiefl'
 
 permissions:
   contents: write
@@ -68,6 +68,8 @@ jobs:
           reviewers: ${{ inputs.reviewer }}
           body: |
             Updates `arcadia-pub-theme` from ${{ steps.current.outputs.version }} to ${{ steps.latest.outputs.version }}.
+
+            When this PR is merged, the theme will be synced to the `publish` branch and the site will be automatically re-rendered and deployed with the new theme.
 
             **Release notes:** https://github.com/Arcadia-Science/notebook-pub-theme/releases/tag/v${{ steps.latest.outputs.version }}
 
