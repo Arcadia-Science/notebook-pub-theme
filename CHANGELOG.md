@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+## [1.0.3] - 2026-02-03
+
+### Added
+
+- Reusable GitHub workflows for automated theme updates
+
 ## [1.0.2] - 2026-02-03
 
 ### Fixed
