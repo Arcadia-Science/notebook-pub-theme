@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+## [1.0.5] - 2026-02-04
+
+### Changed
+
+- Reverted `--arcadia-pewter` to original color (#3b6179)
+
 ## [1.0.4] - 2026-02-04
 
 ### Changed
