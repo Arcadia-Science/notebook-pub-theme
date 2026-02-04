@@ -2,72 +2,59 @@
 
 A [Quarto extension](https://quarto.org/docs/extensions/) that provides shared styling and infrastructure for Arcadia Science notebook publications.
 
-This extension provides all the styling for our notebook pub. It includes our assets (citation style, logo files, etc), all of the CSS (fonts, page layout, etc.), and interactive components (mini-title sticky header, author reveal, citation box, logo animation, etc.).
+This extension provides all the styling for our notebook pubs. It includes our assets (citation style, logo files, etc), all of the CSS (fonts, page layout, etc.), and interactive components (mini-title sticky header, author reveal, citation box, logo animation, etc.).
 
 ## How to use
 
 This extension comes pre-packaged with our [notebook pub template](https://github.com/Arcadia-Science/notebook-pub-template). **Head there if you're trying to develop a notebook pub**, or continue reading if you plan to make changes to the theme shared across all our notebook pubs.
 
-## Developer instructions
+## Deploying theme changes
 
-### Setup
+Theme updates propagate automatically to all notebook pubs (including the template). Here's how to make and deploy changes:
 
-Clone this repo and make sure you've [installed Quarto](https://quarto.org/docs/get-started/): `quarto --version`
+### 1. Make and test your changes
 
-### Testing theme changes
+Clone this repo and [notebook-pub-test](https://github.com/Arcadia-Science/notebook-pub-test). Make sure you've [installed Quarto](https://quarto.org/docs/get-started/).
 
-You must test theme changes in concert with the notebook-pub-template repo, which includes a demo notebook that exercises various styling features.
-
-1. If you haven't already, clone the [notebook pub template](https://github.com/Arcadia-Science/notebook-pub-template).
-
-2. Replace the existing extension with a symlink to the theme repo's contents:
-
-   ```bash
-   cd notebook-pub-template
-   rm -rf _extensions/arcadia-science
-   mkdir -p _extensions/arcadia-science
-   ln -s ../notebook-pub-theme/_extensions/arcadia-science/arcadia-pub-theme _extensions/arcadia-science/arcadia-pub-theme
-   ```
-
-   (Modify the symlink source path to match your repo location)
-
-3. Run the preview:
-
-   ```bash
-   make preview
-   ```
-
-4. Make changes to CSS, JS, or other extension files in `notebook-pub-theme`. The preview is live and will hot reload.
-
-### Propagating changes
-
-After merging changes to `main`, you'll need to update the repos that use this theme.
-
-#### Updating notebook-pub-template
-
-The template should always have the latest theme so new publications start with current styling:
+Replace the test repo's extension with a symlink to your local theme:
 
 ```bash
-cd notebook-pub-template
-rm -rf _extensions/arcadia-science
-quarto add Arcadia-Science/notebook-pub-theme --no-prompt
-git add _extensions/arcadia-science
-git commit -m "Update arcadia-pub-theme"
+cd notebook-pub-test
+rm -rf _extensions/Arcadia-Science
+ln -s /path/to/notebook-pub-theme/_extensions/Arcadia-Science _extensions/Arcadia-Science
 ```
 
-#### Updating existing publications
+Run `make preview` and make changes to CSS, JS, or other extension files in `notebook-pub-theme`. The preview will hot reload.
 
-Each publication repo has its own copy of the theme extension. To pull in updates:
+### 2. Create a release
 
-```bash
-cd <publication-repo>
-quarto update extension Arcadia-Science/notebook-pub-theme --no-prompt
-git add _extensions/arcadia-science
-git commit -m "Update arcadia-pub-theme"
-```
+When you're ready to deploy, you need to:
 
-Test locally with `make preview` before pushing.
+1. **Decide on a version number.** This repo uses [semantic versioning](https://semver.org/).
 
-### Future plans
+2. **Update the version in `_extensions/Arcadia-Science/arcadia-pub-theme/_extension.yml`:**
 
-We plan to automate theme updates using Dependabot or a similar tool. This would automatically open PRs in publication repos when the theme is updated, reducing manual effort and ensuring publications stay current with styling improvements and bug fixes.
+   ```yaml
+   version: X.Y.Z
+   ```
+
+3. **Add an entry to `CHANGELOG.md`** describing what changed.
+
+4. **Open a pull request** with your changes and merge it.
+
+5. **Create a GitHub release** from `main`:
+
+   ```bash
+   gh release create vX.Y.Z --title "vX.Y.Z" --notes "Description of changes"
+   ```
+
+### 3. PRs are created automatically
+
+Each notebook pub checks for theme updates daily. When a new release is detected, a PR is automatically opened. You can also trigger the check manually from the Actions tab → "Check Theme Updates" → "Run workflow".
+
+### 4. Merge the PRs
+
+Review and merge each PR. When merged, the site is automatically re-rendered and deployed with the new theme.
+
+> [!NOTE]
+> **Theme updates don't create new content versions.** The versioning system in notebook pubs (git tags like `v1.0`, `v1.1`) exists to track changes to scientific content—notebooks, figures, conclusions. Theme updates (CSS, fonts, layout) are orthogonal to the science and shouldn't create new versions. When a theme PR is merged, only the styling changes; the content versions remain unchanged.
