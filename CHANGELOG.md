@@ -9,6 +9,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+## [1.0.6] - 2026-02-04
+
+### Changed
+
+- Gate Quarto setup behind version check for faster no-op runs
+- Added pull vs push model rationale to documentation
+
 ## [1.0.5] - 2026-02-04
 
 ### Changed
