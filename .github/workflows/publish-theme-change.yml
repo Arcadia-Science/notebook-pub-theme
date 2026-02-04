@@ -16,42 +16,24 @@ jobs:
   publish-theme:
     runs-on: ubuntu-latest
     steps:
-      - name: Check for in-flight content release
-        id: guard
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          OPEN_PRS=$(gh pr list --repo ${{ github.repository }} --base publish --state open --json number --jq 'length')
-          if [ "$OPEN_PRS" -gt 0 ]; then
-            echo "Content release PR in progress, skipping theme sync"
-            echo "Theme update will be included when the content release merges"
-            echo "skip=true" >> $GITHUB_OUTPUT
-          else
-            echo "skip=false" >> $GITHUB_OUTPUT
-          fi
-
       - name: Checkout main branch
-        if: steps.guard.outputs.skip == 'false'
         uses: actions/checkout@v4
         with:
           ref: main
           path: main-branch
 
       - name: Checkout publish branch
-        if: steps.guard.outputs.skip == 'false'
         uses: actions/checkout@v4
         with:
           ref: publish
           path: publish-branch
 
       - name: Sync theme to publish branch
-        if: steps.guard.outputs.skip == 'false'
         run: |
           rm -rf publish-branch/_extensions
           cp -r main-branch/_extensions publish-branch/_extensions
 
       - name: Commit and push to publish
-        if: steps.guard.outputs.skip == 'false'
         id: commit
         run: |
           cd publish-branch
@@ -68,11 +50,11 @@ jobs:
           fi
 
       - name: Set up Quarto
-        if: steps.guard.outputs.skip == 'false' && steps.commit.outputs.changed == 'true'
+        if: steps.commit.outputs.changed == 'true'
         uses: quarto-dev/quarto-actions/setup@v2
 
       - name: Render and publish
-        if: steps.guard.outputs.skip == 'false' && steps.commit.outputs.changed == 'true'
+        if: steps.commit.outputs.changed == 'true'
         run: |
           cd publish-branch
           quarto publish gh-pages --no-prompt
