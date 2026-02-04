@@ -25,9 +25,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up Quarto
-        uses: quarto-dev/quarto-actions/setup@v2
-
       - name: Get current theme version
         id: current
         run: |
@@ -52,6 +49,10 @@ jobs:
             echo "Update available: ${{ steps.current.outputs.version }} → ${{ steps.latest.outputs.version }}"
             echo "needed=true" >> $GITHUB_OUTPUT
           fi
+
+      - name: Set up Quarto
+        if: steps.check.outputs.needed == 'true'
+        uses: quarto-dev/quarto-actions/setup@v2
 
       - name: Update theme
         if: steps.check.outputs.needed == 'true'
