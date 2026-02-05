@@ -8,7 +8,7 @@ This repo contains two reusable workflows that automate theme updates across all
 
 Checks for new theme releases and opens a PR if an update is available.
 
-**Trigger:** Daily at midnight PST, or manual dispatch
+**Trigger:** Daily at 9AM PST, or manual dispatch
 
 **What it does:**
 1. Compares version in `_extensions/Arcadia-Science/arcadia-pub-theme/_extension.yml` against the latest GitHub release
@@ -22,7 +22,7 @@ name: Check Theme Updates
 
 on:
   schedule:
-    - cron: '0 8 * * *'
+    - cron: '0 17 * * *'
   workflow_dispatch:
 
 jobs:
