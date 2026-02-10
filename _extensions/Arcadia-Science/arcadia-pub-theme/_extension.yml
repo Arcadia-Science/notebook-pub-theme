@@ -14,6 +14,7 @@ contributes:
         - file: includes/mini-title.html
         - file: includes/version-in-title.html
         - file: includes/citation-box.html
+      highlight-style: arcadia-light.theme
       page-layout: article
       title-block-banner: true
       toc: true
