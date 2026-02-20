@@ -7,7 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.0] - 2026-02-20
+
 ### Added
+
+- Syntax highlighting theme (`arcadia-light.theme`) for code blocks
+- Link to syntax highlighting theme builder in README
+
+### Changed
+
+- Updated fonts to more closely match Stacks
+- Loaded fonts via dedicated `fonts.html` include instead of inline in `main.css`
+- Refactored CSS across article, frontmatter, sidebar, and navbar styles
+- Changed default PR reviewer to Robert-Roth; schedule shifted to 9AM PST
+
+### Fixed
+
+- Fixed `.csl-entry` styling
 
 ## [1.0.6] - 2026-02-04
 
