@@ -2,7 +2,7 @@
 
 A [Quarto extension](https://quarto.org/docs/extensions/) that provides shared styling and infrastructure for Arcadia Science notebook publications.
 
-This extension provides all the styling for our notebook pubs. It includes our assets (citation style, logo files, etc), all of the CSS (fonts, page layout, etc.), and interactive components (mini-title sticky header, author reveal, citation box, logo animation, etc.).
+This extension provides all the styling for our notebook pubs. It includes our assets (citation style, logo files, etc), all of the CSS (fonts, page layout, etc.), syntax highlighting for code blocks, and interactive components (mini-title sticky header, author reveal, citation box, logo animation, etc.).
 
 ## How to use
 
@@ -25,6 +25,8 @@ ln -s /path/to/notebook-pub-theme/_extensions/Arcadia-Science _extensions/Arcadi
 ```
 
 Run `make preview` and make changes to CSS, JS, or other extension files in `notebook-pub-theme`. The preview will hot reload.
+
+The syntax highlighting theme for code blocks lives in `arcadia-light.theme`. To create or edit a theme visually, use the [syntax highlighting theme builder](https://arcadia-science.github.io/arcadia-syntax-highlighting/) and export the Pandoc `.theme` file.
 
 ### 2. Create a release
 
