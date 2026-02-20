@@ -31,6 +31,9 @@ h3 {
 
 .csl-entry {
     margin: 1rem;
+.csl-entry {
+    margin: 1rem;
+    font-family: var(--nb-font-sans);
 }
 
 .quarto-figure-center>figure>p {
