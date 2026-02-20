@@ -44,7 +44,9 @@ body {
     font-family: var(--nb-font-sans);
     color: var(--arcadia-body-color);
 }
-
+.tooltip-inner {
+    font-family: var(--nb-font-sans) !important;
+}
 /* Defines code background */
 .code-annotation-gutter, .code-annotation-gutter-bg {
     background-color: var(--bs-code-bg-color) !important;
