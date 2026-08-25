@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- "Additional assets" row, matching the component of the same name on The Stacks.
+  Pubs declare assets as `additional-assets` in their YAML front matter (a `type`,
+  a `url`, and an optional `name`); the filter supplies the icon, label, and
+  ordering. Pubs that declare none are unaffected.
+
 ## [1.1.0] - 2026-02-20
 
 ### Added
