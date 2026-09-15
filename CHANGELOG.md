@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Fixed
+
+- Display equations wider than the article column now scroll horizontally
+  instead of overrunning the column and crossing into the margin that holds
+  the table of contents and margin references
+
 ## [1.2.0] - 2026-08-27
 
 ### Added
