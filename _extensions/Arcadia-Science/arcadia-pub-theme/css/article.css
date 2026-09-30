@@ -124,3 +124,23 @@ div.callout-caution.callout {
 div.callout-caution.callout-style-default>.callout-header {
     background-color: rgb(from var(--callout-caution-rgb) r g b / 0.1);
 }
+
+/* Keep an over-wide display equation inside the body column.
+
+   KaTeX lays a display equation out at its natural width, and the inner block
+   carries white-space: nowrap, so a long equation overruns the article column
+   and crosses into the margin holding the table of contents and any margin
+   references. Bounding the outer block is enough for the browser to supply a
+   horizontal scrollbar, which keeps the equation at full size without pushing
+   it outside the text it belongs to.
+
+   overflow-y stays hidden so that a taller equation does not also gain a
+   vertical scrollbar, and the vertical padding keeps the horizontal scrollbar
+   clear of subscripts. */
+.katex-display {
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+}
