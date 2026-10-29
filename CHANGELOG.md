@@ -12,6 +12,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Display equations wider than the article column now scroll horizontally
   instead of overrunning the column and crossing into the margin that holds
   the table of contents and margin references
+- The author list and "Cite this pub" box now load on pubs with notebook outputs
+  that set global `exports`/`module` while loading (such as py3Dmol viewers).
+  js-yaml is now loaded as an ES module instead of through require.js
 
 ## [1.2.0] - 2026-08-27
 
